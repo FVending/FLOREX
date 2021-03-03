@@ -44,7 +44,7 @@ public class BDSqlLite : MonoBehaviour
 
     public void Connact()
     {
-        Path = Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\SqlLite.s3db";
+        Path = Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\SqlLite.s3db";
 
         //Path = Application.dataPath + "/SqlLite.s3db"; // Указываем путь к базе Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\Price.smp");
         Connect_BD = new SqliteConnection("URI=file:" + Path); // Соеденяемся с базой

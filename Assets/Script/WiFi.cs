@@ -10,7 +10,7 @@ public class WiFi : MonoBehaviour
    
     void Start()
     {
-        Process.Start(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\WiFi_Connect.exe");
+        Process.Start(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\WiFi_Connect.exe");
     }
 
     // Update is called once per frame

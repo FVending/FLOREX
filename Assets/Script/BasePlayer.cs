@@ -19,9 +19,9 @@ public class BasePlayer : MonoBehaviour
 
     void Awake()
     {
-        if (!File.Exists(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\Price.smp"))
+        if (!File.Exists(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\Price.smp"))
         {         
-            File.Create(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\Price.smp");
+            File.Create(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\Price.smp");
         }
        
     }
@@ -34,7 +34,7 @@ public class BasePlayer : MonoBehaviour
 
     void PriceList()
     {
-        StreamReader ReadPrice = new StreamReader(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\Price.smp"); // Читаем сохранение
+        StreamReader ReadPrice = new StreamReader(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\Price.smp"); // Читаем сохранение
 
         if (ReadPrice != null)
         {

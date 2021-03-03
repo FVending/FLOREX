@@ -46,7 +46,7 @@ public class MDB : MonoBehaviour
 
     void Awake()
     {
-        Process.Start(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\USB_Skan.exe");
+        Process.Start(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\USB_Skan.exe");
         
 
     }
@@ -129,7 +129,7 @@ public class MDB : MonoBehaviour
     void SCAN_PORT()
     {
         Thread.Sleep(1000);
-        string[] ReadConfig = File.ReadAllLines(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\Config.smp"); // Создаем массив в котором будут строки из файла в корневой дерриктории проекта
+        string[] ReadConfig = File.ReadAllLines(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\Config.smp"); // Создаем массив в котором будут строки из файла в корневой дерриктории проекта
         foreach (string s in ReadConfig) // перебираем массив
         {
 
