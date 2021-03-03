@@ -17,7 +17,7 @@ public class Config : MonoBehaviour
     string Change_WiFi_Name; // Переменная для проверки изменений в поле
     string Change_WiFi_Password; // Переменная для проверки изменений в поле
     //StreamReader ReadConfig = new StreamReader("Data/Save/Config.smp"); // Читаем сохранение
-    string[] ReadConfig = File.ReadAllLines(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\Config.smp"); // Создаем массив в котором будут строки из файла в корневой дерриктории проекта
+    string[] ReadConfig = File.ReadAllLines(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\Config.smp"); // Создаем массив в котором будут строки из файла в корневой дерриктории проекта
     List<string> Config_Lict = new List<string>();// Создаем пустой список
     int fix = 0;
     int Fix_WiFi_Name = 0;
@@ -34,7 +34,7 @@ public class Config : MonoBehaviour
     {
         //gameObject.SetActive(false); // Закрываем страницу админа
 
-        if (!File.Exists(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\Config.smp"))
+        if (!File.Exists(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\Config.smp"))
         {
             Errors_Panel.SetActive(true);
             Errors_Panel.GetComponent<Errors>().ERROR("Не найден Config.smp");    
@@ -88,7 +88,7 @@ public class Config : MonoBehaviour
 
         if (Write_True)
         {
-            StreamWriter Write_Config = new StreamWriter(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\Config.smp");// C:\Users\ser\Desktop\PayBotGame\PayBot_Data
+            StreamWriter Write_Config = new StreamWriter(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\Config.smp");// C:\Users\ser\Desktop\PayBotGame\PayBot_Data
             foreach (string r in Config_Lict) // запускаем цикл перезаписи
             {
                 Write_Config.WriteLine(r);

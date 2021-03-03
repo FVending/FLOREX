@@ -18,15 +18,15 @@ public class PasswordServise : MonoBehaviour
 
     void Awake()
     {
-        if (!File.Exists(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\ServisePassword.smp"))
+        if (!File.Exists(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\ServisePassword.smp"))
         {
-            File.Create(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\ServisePassword.smp");
+            File.Create(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\ServisePassword.smp");
         }
     }
 
     void Start()
     {
-        StreamReader Read_Password = new StreamReader(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\ServisePassword.smp"); // Читаем из файла
+        StreamReader Read_Password = new StreamReader(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\ServisePassword.smp"); // Читаем из файла
         Read_Value = Read_Password.ReadLine(); // Читаем сам пароль
     }
 

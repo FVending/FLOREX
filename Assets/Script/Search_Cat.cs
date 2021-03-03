@@ -41,9 +41,9 @@ public class Search_Cat : MonoBehaviour
                     {
                         string fileOne = dir; // Записываем файл в переменную
                         //Debug.Log(fileOne);
-                        File.Delete(Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\Price.smp"); // Удаляем файл из деректории с игрой
-                        File.Copy(fileOne, Environment.CurrentDirectory + @"\PayBot_Data\StreamingAssets\Data\Save\Price.smp"); // Записываем новый в деректорию с игрой
-                        SceneManager.LoadScene("PayBot"); // Перезапуск программы
+                        File.Delete(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\Price.smp"); // Удаляем файл из деректории с игрой
+                        File.Copy(fileOne, Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\Price.smp"); // Записываем новый в деректорию с игрой
+                        SceneManager.LoadScene("florex"); // Перезапуск программы
                     }
                 }                
             }
