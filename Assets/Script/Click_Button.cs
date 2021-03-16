@@ -74,7 +74,18 @@ public class Click_Button : MonoBehaviour
     //    GUI.Button(new Rect(200, 800, 200, 100), "Нет такой ячейки!", styleTime);        
     //}
 
-
+    public void Click_Butt_Admin(string Sensor_Cell)
+    {
+        foreach (string Val in Price_Value) // Перебераем прайс
+        {
+            if (Val.Split('=').First() == Sensor_Cell)
+            {
+                SensorValue = Val.Split('=').Last();
+                Debug.Log("Цена " + SensorValue + " Ячейка " + Sensor_Cell);
+                Camera.GetComponent<Controller>().Magic(Sensor_Cell); // обращаемся к функции и передаем значение
+            }
+        }
+    }
 
     public void Click_Butt(string Sensor_Cell)
     {     
@@ -83,8 +94,9 @@ public class Click_Button : MonoBehaviour
             if (Val.Split('=').First() == Sensor_Cell)
             {
                 SensorValue = Val.Split('=').Last();
-                Debug.Log("Цена " + SensorValue + " Ячейка " + Sensor_Cell);
-                Camera.GetComponent<MDB>().Click_Price(SensorValue, Sensor_Cell); // обращаемся к функции и передаем значение
+                //Debug.Log("Цена " + SensorValue + " Ячейка " + Sensor_Cell);
+                //Camera.GetComponent<MDB>().Click_Price(SensorValue, Sensor_Cell); // обращаемся к функции и передаем значение
+                Camera.GetComponent<MDB>().Demo(SensorValue, Sensor_Cell); // обращаемся к функции и передаем значение
             }          
         }
     }

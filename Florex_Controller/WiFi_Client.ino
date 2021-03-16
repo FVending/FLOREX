@@ -17,26 +17,15 @@ void Responce_Clitnt()
         if (charCount < sizeof(lineBuf) - 1)
         {
           charCount++;
-        }
-        
+        }        
         if (c == '\n' && currentLineIsBlank)
         {        
           client.println("HTTP/1.1 200 OK");
           client.println("Content-Type: text/html");         
           client.println("Connection: close");         
           client.println();         
-          String webPage = "<!DOCTYPE HTML>";
-          webPage += "  <p>";
-          webPage += "    DOOR_OPEN = ";
-//          webPage += digitalRead(Inn_31);
-          webPage += "  <br>";
-          webPage += "    DOOR_CLOSE = ";
-//          webPage += digitalRead(Inn_37);
-          webPage += "  <br>";
-          webPage += "    ROTATION_STOP = ";
-//          webPage += digitalRead(Inn_23);
-          webPage += "  <br>";
-          client.println(webPage);
+//          String webPage = "norm";
+          client.println("DONE");
           break;
         }
         if (c == '\n')

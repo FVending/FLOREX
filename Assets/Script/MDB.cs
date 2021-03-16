@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -13,10 +12,11 @@ public class MDB : MonoBehaviour
     SerialPort Port;
     string COM_Port;
     string Money;
-    int Number_Price = 0;
-    string Request_Adr = "http://192.168.0.";
+    string Number_Price;
+    string Request_Adr = "http://192.168.4.1/=";
     string Rec = ""; // переменная для записи по два байта всюстроку. так как UTF8 состоит из например (208 144)
     bool Initialization = true;
+    public bool DEMO = false;
     public static byte Response;
     public static bool Vend = false;
     public GameObject Errors_Panel;
@@ -24,6 +24,11 @@ public class MDB : MonoBehaviour
     public GameObject Pay_Done_Gui;
     public GameObject Pay_DENIED_Gui;
     public GameObject Pay_Page;
+
+    float nextTime = 0.0F;
+    public float timeRate = 10F;
+    bool StartTime = false;
+    bool Active_Object = false;  
 
     public static byte[] Reset = new byte[] { 0x10 };//  Reset
     public static byte[] Setap = new byte[] { 0x11, 0x00, 0x03, 0x00, 0x00, 0x00 };// Setap
@@ -47,55 +52,87 @@ public class MDB : MonoBehaviour
     void Awake()
     {
         Process.Start(Environment.CurrentDirectory + @"\FLOREX_Data\StreamingAssets\Data\Save\USB_Skan.exe");
-        
+
 
     }
 
     void Start()
     {
-       
-        SCAN_PORT();
-     
+        if (!DEMO) SCAN_PORT();
+        //else Demo();
+
     }
 
 
     void Update()
     {
-        if (Port.IsOpen)
+        if (!DEMO)
         {
-            Terminal_Card();
+            if (Port.IsOpen)
+            {
+                Terminal_Card();
+            }
         }
 
+        if (StartTime)
+        {
+            Active_Object = false;
+
+            if (Time.time > nextTime)
+            {
+                nextTime = Time.time + timeRate;
+                Pay_Page.SetActive(false);
+                Pay_Done_Gui.SetActive(true);
+                Debug.Log("Добро");
+                gameObject.GetComponent<Controller>().Magic(Number_Price);
+                StartTime = false;
+                Active_Object = false;
+            }
+        }
+        if (Active_Object)
+        {
+            nextTime = Time.time + timeRate;
+            StartTime = true;
+        }
+        
+    }
+
+    public void Demo(string Money_Price, string Cell)
+    {
+        Number_Price = Cell;
+        Active_Object = true;
+        //Debug.Log(Money_Price);
+        Pay_Page.SetActive(true);
     }
 
     public void Click_Price(string Money_Price, string Name) // тут получаем значение из вне
     {
-        Number_Price = Convert.ToInt32(Name.Split('.').First()) * 10;
+        //Number_Price = Convert.ToInt32(Name.Split('.').First()) * 10;
         //Debug.Log(Number_Price);
         //gameObject.GetComponent<HttpReqoestExample>().Send(Request_Adr + Number_Price +"/on1");
-        
+
         //gameObject.GetComponent<Controller>().Magic(Request_Adr + Number_Price);
         //char xx = Convert.ToChar(Name);
         Money = Money_Price;
-        byte[] Byte_Name = Encoding.UTF8.GetBytes(Name); // декодируем название в UTF8
-        int Count_Two = 0; // переменная для групировки по два байта       
-                           //string Rec = ""; // переменная для записи по два байта всюстроку. так как UTF8 состоит из например (208 144)
-        //gameObject.GetComponent<HttpReqoestExample>().Send("http://192.168.0.10/start");
+        //byte[] Byte_Name = Encoding.UTF8.GetBytes(Name); // декодируем название в UTF8
+        //int Count_Two = 0; // переменная для групировки по два байта       
+        //                   //string Rec = ""; // переменная для записи по два байта всюстроку. так как UTF8 состоит из например (208 144)
+        ////gameObject.GetComponent<HttpReqoestExample>().Send("http://192.168.0.10/start");
 
-        for (int i = 0; Byte_Name.Length > i; i++) // цикл который разделяет слешем строку. для упрощения работы с ней в дальнейшем
-        {
-            Count_Two = Count_Two + 1;
-            if (Count_Two != 0)
-            {
-                Rec = Rec + Convert.ToString(Byte_Name[i]);
-            }
-            if (Count_Two == 2)
-            {
-                Rec = Rec + "/";
-                Count_Two = 0;
-            }
+        //for (int i = 0; Byte_Name.Length > i; i++) // цикл который разделяет слешем строку. для упрощения работы с ней в дальнейшем
+        //{
+        //    Count_Two = Count_Two + 1;
+        //    if (Count_Two != 0)
+        //    {
+        //        Rec = Rec + Convert.ToString(Byte_Name[i]);
+        //    }
+        //    if (Count_Two == 2)
+        //    {
+        //        Rec = Rec + "/";
+        //        Count_Two = 0;
+        //    }
 
-        }
+        //}
         //Debug.Log(Rec);
         //gameObject.GetComponent<BDSqlLite>().WriteBD(Money, Rec);
 
@@ -192,7 +229,7 @@ public class MDB : MonoBehaviour
                         Pay_Done_Gui.SetActive(true);
                         Pay_Page.SetActive(false);
                         Debug.Log("Добро");
-                        gameObject.GetComponent<Controller>().Magic(Request_Adr + Number_Price);
+                        //gameObject.GetComponent<Controller>().Magic(Request_Adr + Number_Price);
                         Initialization = true;
                         gameObject.GetComponent<BDSqlLite>().CashAndCell = true;
                         gameObject.GetComponent<BDSqlLite>().WriteBD(Money, Rec);

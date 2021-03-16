@@ -8,7 +8,7 @@ public class HttpReqoestExample : MonoBehaviour
     /* [SerializeField]*/
     //private string url_On_1 = "http://192.168.0.10/on1";
     //private string url_Off_1 = "http://192.168.0.10/off1";
-    private string InfoPin = "http://192.168.0.10";
+    private string InfoPin = "http://192.168.4.1";
 
 
     void Start()
@@ -18,6 +18,7 @@ public class HttpReqoestExample : MonoBehaviour
     public void Send(string Adress)
     {
         StartCoroutine(SendRequest(Adress));
+        Debug.Log(Adress);
     }
 
 
@@ -27,7 +28,9 @@ public class HttpReqoestExample : MonoBehaviour
         UnityWebRequest request = UnityWebRequest.Get(URL);
 
         yield return request.SendWebRequest();
-        Debug.Log(request.downloadHandler.text);
+        URL = "";
+        //Debug.Log(request.downloadHandler.text);
+        //Debug.Log(URL);
     }
 
     private IEnumerator SendRequest2()
@@ -36,11 +39,12 @@ public class HttpReqoestExample : MonoBehaviour
         UnityWebRequest request = UnityWebRequest.Get(this.InfoPin);
 
         yield return request.SendWebRequest();
-        Debug.Log(request.responseCode);
+        Debug.Log(request.downloadHandler.text);
     }
 
     void Update()
     {
+        //Debug.Log(URL);
         //StartCoroutine(SendRequest2());
     }
 }

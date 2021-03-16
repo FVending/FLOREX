@@ -18,10 +18,12 @@ const int Sensor_ROW = 23;
 const int Button = 19;
 
 // вводим имя и пароль точки доступа
-const char* ssid = "SERMAN2";
-const char* password = "serman33";
+const char* ssid = "FLOREX";
+const char* password = "florex00";
 
 WiFiServer server(80);// инициализируем сервер на 80 порте
+
+String header;
 
 // создаем буфер и счетчик для буфера
 char lineBuf[80];
@@ -37,21 +39,16 @@ void setup()
 
 
   pinMode(Sensor_ROW, INPUT_PULLUP);
-  pinMode(Button, INPUT_PULLUP);  
+  pinMode(Button, INPUT_PULLUP);
 
   Serial.begin(115200);// инициализируем монитор порта
 
-  Serial.println("");
-  Serial.println("Wi-Fi connected");
-  Serial.println("IP-address: ");
-
-  Serial.println(WiFi.localIP());// пишем IP-адрес в монитор порта
   server.begin();
 
 }
 
 void loop()
 {
-
+Responce_Clitnt();
 
 }
