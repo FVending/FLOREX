@@ -10,6 +10,7 @@ public class Click_Button : MonoBehaviour
     string SensorValue;
     string Cell = "";
     string DoubleCell = "";
+    
     bool Price_Bool = true;
     List<string> Price_Value;
   
@@ -82,7 +83,8 @@ public class Click_Button : MonoBehaviour
             {
                 SensorValue = Val.Split('=').Last();
                 Debug.Log("Цена " + SensorValue + " Ячейка " + Sensor_Cell);
-                Camera.GetComponent<Controller>().Magic(Sensor_Cell); // обращаемся к функции и передаем значение
+                Camera.GetComponent<Controller>().Magic(Sensor_Cell, false); // обращаемся к функции и передаем значение
+                Camera.GetComponent<BasePlayer>().Cell_For_New_Price = Sensor_Cell;
             }
         }
     }

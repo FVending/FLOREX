@@ -84,7 +84,7 @@ public class MDB : MonoBehaviour
                 Pay_Page.SetActive(false);
                 Pay_Done_Gui.SetActive(true);
                 Debug.Log("Добро");
-                gameObject.GetComponent<Controller>().Magic(Number_Price);
+                gameObject.GetComponent<Controller>().Magic(Number_Price, true);
                 StartTime = false;
                 Active_Object = false;
             }

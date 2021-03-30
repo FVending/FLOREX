@@ -5,28 +5,24 @@ using UnityEngine.Networking;
 
 public class HttpReqoestExample : MonoBehaviour
 {
-    /* [SerializeField]*/
-    //private string url_On_1 = "http://192.168.0.10/on1";
-    //private string url_Off_1 = "http://192.168.0.10/off1";
+ 
     private string InfoPin = "http://192.168.4.1";
-
+    public bool Shop = false;
 
     void Start()
-    {
-        //StartCoroutine(SendRequest("http://192.168.0.10/start"));
+    {     
     }
-    public void Send(string Adress)
+    public void Send(string Adress, bool sh)
     {
         StartCoroutine(SendRequest(Adress));
-        Debug.Log(Adress);
+        Shop = sh;
+        //gameObject.GetComponent<BasePlayer>().Installation_Cell(true);// установка букета подгон ячейки
     }
 
-
+ 
     public IEnumerator SendRequest(string URL)
-    {
-   
+    {   
         UnityWebRequest request = UnityWebRequest.Get(URL);
-
         yield return request.SendWebRequest();
         URL = "";
         //Debug.Log(request.downloadHandler.text);
@@ -34,17 +30,38 @@ public class HttpReqoestExample : MonoBehaviour
     }
 
     private IEnumerator SendRequest2()
-    {
-        
+    {        
         UnityWebRequest request = UnityWebRequest.Get(this.InfoPin);
 
         yield return request.SendWebRequest();
         Debug.Log(request.downloadHandler.text);
+
+        if(request.downloadHandler.text == "DONE")
+        {
+            if (Shop)
+            {
+                gameObject.GetComponent<BasePlayer>().Installation_Cell(false);// Продажа букета подгон ячейки
+            }
+            else
+            {
+                gameObject.GetComponent<BasePlayer>().Installation_Cell(true);// установка букета подгон ячейки
+            }
+        }
     }
 
     void Update()
     {
-        //Debug.Log(URL);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (Shop)
+            {
+                gameObject.GetComponent<BasePlayer>().Installation_Cell(false);// Продажа букета подгон ячейки
+            }
+            else
+            {
+                gameObject.GetComponent<BasePlayer>().Installation_Cell(true);// установка букета подгон ячейки
+            }
+        }
         //StartCoroutine(SendRequest2());
     }
 }

@@ -32,12 +32,10 @@ public class Controller : MonoBehaviour
         //}
     }
 
-    public void Magic(string Cell)
-    {
-        //Adress_Controller = ADR;
-        nextTime = Time.time + timeRate;
-        //gameObject.GetComponent<HttpReqoestExample>().Send(ADR + Swich_On); // рабочий вариант, раскоментировать после тестов
-        gameObject.GetComponent<HttpReqoestExample>().Send("http://192.168.4.1/=" + Cell);// тест, на прямую в контроллер
+    public void Magic(string Cell, bool shop)
+    {      
+        nextTime = Time.time + timeRate;        
+        gameObject.GetComponent<HttpReqoestExample>().Send("http://192.168.4.1/=" + Cell, shop);// тест, на прямую в контроллер
         StartTime = true;
     }
 }
