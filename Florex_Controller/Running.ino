@@ -1,43 +1,57 @@
 void Running()
 {
-	timing_sensor = millis();
-	bool Home = false;
+  timing_sensor = millis();
+  int Interval = 0;
+  bool Home = false;
+  bool Home2 = false;
+  bool Row = true;
+  int sector_sensor = 0;
 
-	while (true)
-	{
-		digitalWrite(Rotor_STEP, HIGH);
-		delayMicroseconds(Speed_ROW_Rotor);
-		digitalWrite(Rotor_STEP, LOW);
-		delayMicroseconds(Speed_ROW_Rotor);
+  Serial.println("start");
 
-		if (Sensor_ROW == 1)
-		{			
-			if (millis() - timing_sensor > 2000)//Раз в 2с проверяем значение датчика
-			{
-				if (Sensor_ROW == 0 and Home == true)
-				{
-					Sector = Sector + 1;
-				}
-			}
-			else
-			{
-				if (Sensor_ROW == 0 and Home == false)
-				{
-					Home = true;
-				}
-			}
-		}
-		else
-		{
-			timing_sensor = millis();
-		}
-	}
-	Serial.println("Home true");
+  while (Home == false)
+  {
+    digitalWrite(Rotor_STEP, HIGH);
+    delayMicroseconds(Speed_ROW_Rotor);
+    digitalWrite(Rotor_STEP, LOW);
+    delayMicroseconds(Speed_ROW_Rotor);
 
-	for (int i = 0; i < Cell; i++)
-	{
+    if (digitalRead(Sensor_ROW) == 0 and millis() - timing_sensor > distance)
+    {
+      Home2 = true;     
+    }
+    if (Home2 == true and digitalRead(Sensor_ROW) == 0)// РїРѕРёСЃРє HOME
+    {
+      if (millis() - timing_sensor > 30 and millis() - timing_sensor < distance / 2)
+      {
+        Serial.println("Home true");
+        Home2 = false;
+        break;
+      }
+      timing_sensor = millis();
+    }
+  }
 
-	}
-
-	Serial.println("Level true");
+  while (Row)
+  {
+    digitalWrite(Rotor_STEP, HIGH);
+    delayMicroseconds(Speed_ROW_Rotor);
+    digitalWrite(Rotor_STEP, LOW);
+    delayMicroseconds(Speed_ROW_Rotor);
+    if (digitalRead(Sensor_ROW) == 0 and millis() - timing_sensor > distance)
+    {
+      sector_sensor++;
+      Serial.println(sector_sensor);
+      if (Sector == sector_sensor)
+      {
+        Row = false;
+        sector_sensor = 0;
+        Sector = 0;
+        break;
+      }
+      timing_sensor = millis();
+    }
+  }
+  Open_Door();//РѕС‚РєСЂС‹РІР°РµРј РѕРєРЅРѕ
+  Serial.println("РљРѕРЅРµС†");
 }

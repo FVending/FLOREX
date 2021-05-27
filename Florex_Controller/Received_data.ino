@@ -1,18 +1,20 @@
 void Received_data()// обработка полученных данных
 {
 
-
-	if (Cell <= 7)
-	{
-		Sector = Cell;
-		Level = 1;
-		Running();
-	}
-	if (Cell <= 13)
-	{
-		Sector = Cell - 10;
-		Level = 2;
-		Running();
-	}
+  Serial.println(Cell);
+  if (Cell <= 6)
+  {
+    DoorUP = true;
+    Sector = Cell;
+    Level = 1;
+    Running();
+  }
+  if (Cell >= 7)
+  {
+    DoorDown = true;
+    Sector = Cell - 6;
+    Level = 2;
+    Running();
+  }
 
 }
